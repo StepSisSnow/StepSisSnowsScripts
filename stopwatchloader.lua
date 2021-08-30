@@ -1,4 +1,4 @@
-
+if game.PlaceId == 2050207304 then
 -- Instances:
 local Stopwatch = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
@@ -36,3 +36,4 @@ local function RUNVC_fake_script() -- TextLabel.LocalScript
     end
 end
 coroutine.wrap(RUNVC_fake_script)()
+end
