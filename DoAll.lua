@@ -269,4 +269,5 @@ ChatAdvance:FireServer(
 		[1] = "k"
 	}
 )
+wait(4)
 game:GetService("TeleportService"):Teleport(536102540)
