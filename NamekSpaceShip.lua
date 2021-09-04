@@ -1,3 +1,5 @@
+game.workspace.FriendlyNPCs["Quest Giver"]:Destroy()
+game.workspace.FriendlyNPCs["Quest Giver"]:Destroy()
 local ChatStart = game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatStart
 ChatStart:FireServer(
 	workspace.FriendlyNPCs["Quest Giver"]
@@ -60,7 +62,5 @@ ChatAdvance:FireServer(
 		[1] = "k"
 	}
 )
-game.workspace.FriendlyNPCs["Quest Giver"]:Destroy()
-game.workspace.FriendlyNPCs["Quest Giver"]:Destroy()
 wait(3)
 game:GetService("TeleportService"):Teleport(536102540)
