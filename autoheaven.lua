@@ -1,3 +1,4 @@
+
 _G.Winner = Winner
 _G.Loser = Loser
 
@@ -8,10 +9,23 @@ end
 if game.PlaceId == 3618359401 then
     wait(9.5)
     if _G.Winner == game.Players.LocalPlayer.Name then
-        wait(15)
-        game:GetService("TeleportService"):Teleport(3552157537)
+        if #game.Players:GetPlayers() > 1 then
+            for i, player in pairs(game:GetService("Players"):GetPlayers()) do
+                wait(15)
+                game:GetService("TeleportService"):Teleport(3552157537)
+                if player.Name ~= _G.Loser then
+                    game:GetService("TeleportService"):Teleport(3618359401)
+                end
+            end
+        end
     end
-    if _G.Loser == game.Players.LocalPlayer.Name then
-        game:GetService("TeleportService"):Teleport(3552157537)
+elseif _G.Loser == game.Players.LocalPlayer.Name then
+    if #game.Players:GetPlayers() > 1 then
+        for i, player in pairs(game:GetService("Players"):GetPlayers()) do
+            game:GetService("TeleportService"):Teleport(3552157537)
+            if player.Name ~= _G.Winner then
+                game:GetService("TeleportService"):Teleport(3618359401)
+            end
+        end
     end
 end
