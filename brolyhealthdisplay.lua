@@ -1,5 +1,3 @@
-ShowHealth = "Numbers"
-
 _G.HealthModeG = ShowHealth
 
 if _G.HealthModeG == "Percent" or _G.HealthModeG == "percent" then
