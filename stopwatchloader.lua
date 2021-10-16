@@ -35,5 +35,8 @@ local function RUNVC_fake_script() -- TextLabel.LocalScript
         script.Parent.Text = (Stopwatch)
     end
 end
+if stopwatch == 300 then
+    game:GetService("TeleportService"):Teleport(3565304751)
+end
 coroutine.wrap(RUNVC_fake_script)()
 end
