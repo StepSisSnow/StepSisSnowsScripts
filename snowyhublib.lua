@@ -1,4 +1,4 @@
-local DiscordLib = {}
+local SnowyHubLib = {}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -86,7 +86,7 @@ Discord.Name = "Discord"
 Discord.Parent = game.CoreGui
 Discord.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-function DiscordLib:Window(text)
+function SnowyHubLib:Window(text)
 	local currentservertoggled = ""
 	local minimized = false
 	local fs = false
@@ -1515,7 +1515,7 @@ function DiscordLib:Window(text)
 		
 	end)
 	
-	function DiscordLib:Notification(titletext, desctext, btntext)
+	function SnowyHubLib:Notification(titletext, desctext, btntext)
 		local NotificationHolderMain = Instance.new("TextButton")
 		local Notification = Instance.new("Frame")
 		local NotificationCorner = Instance.new("UICorner")
@@ -3244,4 +3244,4 @@ function DiscordLib:Window(text)
 	end
 	return ServerHold
 end
-return DiscordLib
+return SnowyHubLib
