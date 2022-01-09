@@ -1,4 +1,5 @@
 _G.HealthModeG = ShowHealth
+
 if _G.HealthModeG == "Percent" or _G.HealthModeG == "percent" then
         game.Players.LocalPlayer.PlayerGui.HUD.Bottom.SP.Visible = true
         game.Players.LocalPlayer.PlayerGui.HUD.Bottom.SP.Text = "Broly's Health: " ..math.floor((game:GetService("Workspace").Live["Broly BR"].Humanoid.Health / game:GetService("Workspace").Live["Broly BR"].Humanoid.MaxHealth) * 100) .. "%"
