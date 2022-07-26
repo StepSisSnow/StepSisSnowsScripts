@@ -15,7 +15,7 @@ local plr = game:GetService("Players").LocalPlayer
 local mouse = plr:GetMouse()
 if game.PlaceId == 536102540 then
   while wait() do
-    game:GetService("TeleportService"):Teleport(882375367, game.Players.LocalPlayer)
+    game:GetService("TeleportService"):Teleport(882375367)
   end
 end
 
@@ -53,6 +53,16 @@ if game.PlaceId == 882375367 then
       game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.StatPoints.Val.Text = "AutoHTC"
       game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Quests.TextLabel.Text = "Insomnia on TOP"
       game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Money.Text = "FUCK NDR!"
+      coroutine.resume(
+        coroutine.create(function()
+            local lvl = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.LVL.Val
+            while wait() do
+                if lvl == "101" or lvl == "181" or lvl == "251" or lvl == "321" then
+                    game:GetService("TeleportService"):Teleport(882375367)
+                end
+            end
+        end)
+    )
       coroutine.resume(
         coroutine.create(function()
             while wait() do
