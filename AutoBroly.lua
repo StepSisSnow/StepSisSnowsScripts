@@ -1,42 +1,3 @@
-Move1 = "Deadly Dance"
-Move2 = "Anger Rush"
-Move3 = "Neo Wolf Fang Fist"
-Move4 = "Wolf Fang Fist"
-Move5 = "Meteor Crash"
-Move6 = "TS Molotov"
-Move7 = "God Slicer"
-Move8 = ""
-Move9 = ""
-Move10 = ""
-Move11 = ""
-Move12 = ""
-Move13 = ""
-Move14 = ""
-Move15 = ""
---[[
-How to use:
-ChargeTime: How long your character will charge.
-Autostats: Just type the stats u want to put ur points in full out. Ex: "Melee Damage"
-ShowHealth: Shows broly's health in either percentages or numbers. (change to Percent or percent for percentages and Numbers or numbers for numbers)
-ExpFreeze: Freezes your 2x exp.
-BadPC: For low end pc's makes everything load and then attack broly instead of immediate attack.
-AntiLeech: If people can join your autobroly yes or no.
-Dragon Crush: Do you want to grab broly or just keep standing behind him?
-AutoPunch: Does auto heavy attacks on him when your low on ki.
-Earth: Uses earth pad set to false if you want to use queue worlds.
-]]
-ChargeTime = 3
-ShowHealth = "Percent"
-TeamDamage = false
-GrabTimeCheck = 20
-RejoinTime = 120
-ExpFreeze = true
-BadPC = false
-AntiLeech = false
-DragonCrush = true
-AutoPunch = true
-Earth = false
-
 
 -- script start: notifications
 if not game:IsLoaded() then
@@ -193,13 +154,13 @@ if game.PlaceId == 3565304751 then
 	)
 	-- credits
 	local args = {
-		[1] = "Auto Broly by Insomnia .gg/T2fBdnWKkZ",
+		[1] = "Auto Broly by Insomnia",
 		[2] = "All"
 	}
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
 	wait(0.5)
 	local args = {
-		[1] = "NDR IS A CLOWN!",
+		[1] = "Only The Best Got This",
 		[2] = "All"
 	}
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
@@ -211,10 +172,10 @@ if game.PlaceId == 3565304751 then
 	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.Text = "Watching PornHub or XNXX?"
 	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.TextColor3 = Color3.new(150, 0, 255)
 	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.Visible = true
-	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.Namae.Val.Text = "The clown NDR"
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.Namae.Val.Text = "Anonymous"
 	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.StatPoints.Val.Text = "Autobroly"
-	game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Quests.TextLabel.Text = "Made by Insomnia"
-	game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Money.Text = "FUCK NDR!"
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Quests.TextLabel.Text = "Made by Unfair"
+	game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Money.Text = "Version 3.2"
 	pcall(function()
 		game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Quests.ImageLabel:Destroy()
 	end)
@@ -280,6 +241,11 @@ if game.PlaceId == 3565304751 then
 				end
 			end)
 		)
+		if game.Workspace.Live[plr.Name].Race.Value ~= "Android" then
+			if ChargeTime == 0 then
+				wait()
+			end
+		end
 		if  game.Workspace.Live[plr.Name].Race.Value ~= "Android" then
 			game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer({[1] = "x"},CFrame.new(0,0,0),InputObject)
 			wait(ChargeTime)
@@ -303,13 +269,13 @@ if game.PlaceId == 3565304751 then
 		game:GetService("Workspace").Camera.FieldOfView = 15
 		-- credits
 		local args = {
-			[1] = "Auto Broly by Insomnia .gg/T2fBdnWKkZ",
+			[1] = "Auto Broly by Insomnia",
 			[2] = "All"
 		}
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
 		wait(0.5)
 		local args = {
-			[1] = "NDR IS A CLOWN!",
+			[1] = "Only The Best Got This",
 			[2] = "All"
 		}
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
@@ -331,10 +297,10 @@ if game.PlaceId == 3565304751 then
 		game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.BorderColor3 = Color3.new(0, 0, 0)
 		game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.TextColor3 = Color3.new(150, 0, 255)
 		game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.Visible = true
-		game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.Namae.Val.Text = "The clown NDR"
+		game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.Namae.Val.Text = "Anonymous"
 		game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.StatPoints.Val.Text = "Autobroly"
-		game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Quests.TextLabel.Text = "Made by Insomnia"
-		game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Money.Text = "FUCK NDR!"
+		game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Quests.TextLabel.Text = "Made by Unfair"
+		game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Money.Text = "Version 3.2"
 		pcall(function()
 			game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Quests.ImageLabel:Destroy()
 		end)
