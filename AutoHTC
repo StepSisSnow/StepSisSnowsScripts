@@ -58,7 +58,7 @@ if game.PlaceId == 882375367 then
             local lvl = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.LVL.Val
             while wait() do
                 if lvl == "101" or lvl == "181" or lvl == "251" or lvl == "321" then
-                    game:GetService("TeleportService"):Teleport(882375367)
+                    game:GetService("TeleportService"):Teleport(536102540)
                 end
             end
         end)
