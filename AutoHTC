@@ -26,7 +26,11 @@ if game.PlaceId == 882375367 then
       wait(5)
       local Players = game:GetService("Players")
       local player = Players:FindFirstChildOfClass("Player")
-      game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-59.8978653, 237.826065, -194.40834)
+      coroutine.resume(
+        coroutine.create(function()
+          game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-59.8978653, 237.826065, -194.40834)
+        end)
+      )
       if Players:FindFirstChildOfClass("Player") and player.Character then
         local humanoid = player.Character:FindFirstChildOfClass("Humanoid")
         if humanoid then
