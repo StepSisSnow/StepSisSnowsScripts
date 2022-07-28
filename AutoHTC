@@ -55,7 +55,7 @@ if game.PlaceId == 882375367 then
       game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Money.Text = "FUCK NDR!"
       coroutine.resume(
         coroutine.create(function()
-            local lvl = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.LVL.Val
+            local lvl = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.LVL.Val.Text
             while wait() do
                 if lvl == "101" or lvl == "181" or lvl == "251" or lvl == "321" then
                     game:GetService("TeleportService"):Teleport(536102540)
