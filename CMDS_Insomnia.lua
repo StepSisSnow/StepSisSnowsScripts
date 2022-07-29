@@ -1,3 +1,10 @@
+if not game:IsLoaded() then
+	local loadedcheck = Instance.new("Message",workspace)
+	loadedcheck.Text = 'Loading...'
+	game.Loaded:Wait()
+	loadedcheck:Destroy()
+end
+wait(1.2)
 game:GetService("StarterGui"):SetCore("SendNotification", {
     Title = "Insomnia's CMDS";
     Text = "Way better than NDR's am i right?"
@@ -115,8 +122,30 @@ lplr.Chatted:connect(function(chat)
         print("'zaros -- takes you to zaros but why tf would u be there")
         print("'bs -- Well, it spams beans // togglable")
         print("'re -- Hard resets.")
+        print("'aq -- Anti queue kick. (Destroys wormhole)")
+        print("'sl -- changes slots.")
         print("'anchor -- anchor's you body to the place you're standing // togglable")
         print("'ns -- activates noslow // togglable")
+    end
+
+    if chat:match("'sl") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "What slot you gonna use?"
+        })
+        lplr.Backpack.ServerTraits.ChatStart:FireServer(workspace.FriendlyNPCs["Character Slot Changer"])
+        task.wait(0.45)
+        lplr.Backpack.ServerTraits.ChatAdvance:FireServer({"Yes"})
+        task.wait(0.45)
+        lplr.Backpack.ServerTraits.ChatAdvance:FireServer({"k"})
+    end
+
+    if chat:match("'aq") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Destroyed queue portal!"
+        })
+        game.Workspace.Wormhole.TouchInterest:Destroy()
     end
 
     if chat:match("'anchor") then
