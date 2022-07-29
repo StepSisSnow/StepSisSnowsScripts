@@ -10,6 +10,7 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 
 local lplr = game.Players.LocalPlayer
 
+beanyspammy = false
 Noslow = false
 lplr.Chatted:connect(function(chat)
     if chat:match("'earth") then
@@ -68,6 +69,34 @@ lplr.Chatted:connect(function(chat)
         game:GetService("TeleportService"):Teleport(2651456105)
     end
 
+    if chat:match("'bs") then
+        if beanyspammy == false then
+            beanyspammy = true
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "Bean spam activated!"
+            })
+            beanspam = game:GetService("RunService").Stepped:Connect(function()
+                game.Players.LocalPlayer.Backpack.ServerTraits.EatSenzu:FireServer("")
+            end)
+        elseif beanyspammy == true then
+            beanyspammy = false
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "It broke :("
+            })
+            beanspam:Disconnect()
+        end
+    end
+
+    if chat:match("'re") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Why...?"
+        })
+        game.Players.LocalPlayer.Character.UpperTorso:Destroy()
+    end
+
     if chat:match("'cmds") then
         game:GetService("StarterGui"):SetCore("SendNotification", {
             Title = "Insomnia's CMDS:";
@@ -81,6 +110,8 @@ lplr.Chatted:connect(function(chat)
         print("'sw -- takes you to secret world")
         print("'queue -- takes you to queue world")
         print("'zaros -- takes you to zaros but why tf would u be there")
+        print("'bs -- Well, it spams beans")
+        print("'re -- Hard resets.")
         print("'ns -- activates noslow")
     end
 
@@ -117,5 +148,5 @@ lplr.Chatted:connect(function(chat)
             activenoslow:Disconnect()
         end
     end
-    
+
 end)
