@@ -204,6 +204,7 @@ lplr.Chatted:connect(function(chat)
             Text = "Freezing time!"
         })
         lplr.Character:FindFirstChild'Dragon Crush'.Activator.Throw:Destroy()
+        wait(5)
         TeleportService:Teleport(game.PlaceId, Players.LocalPlayer)
     end
 
