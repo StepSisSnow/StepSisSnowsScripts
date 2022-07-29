@@ -13,34 +13,66 @@ local lplr = game.Players.LocalPlayer
 Noslow = false
 lplr.Chatted:connect(function(chat)
     if chat:match("'earth") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Taking you to earth!"
+        })
         game:GetService("TeleportService"):Teleport(536102540)
     end
 
     if chat:match("'namek") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Taking you to namek!"
+        })
         game:GetService("TeleportService"):Teleport(882399924)
     end
 
     if chat:match("'space") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Taking you to space!"
+        })
         game:GetService("TeleportService"):Teleport(478132461)
     end
 
     if chat:match("'future") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Traveling into the future!"
+        })
         game:GetService("TeleportService"):Teleport(569994010)
     end
 
     if chat:match("'sw") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Traveling to a very secret place!"
+        })
         game:GetService("TeleportService"):Teleport(2046990924)
     end
 
     if chat:match("'queue") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Time to queue up!"
+        })
         game:GetService("TeleportService"):Teleport(3565304751)
     end
 
     if chat:match("'zaros") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "You're just lame..."
+        })
         game:GetService("TeleportService"):Teleport(2651456105)
     end
 
     if chat:match("'cmds") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Showing you all the commands! Press F9"
+        })
         print("Current Commands:")
         print("'earth -- takes you to earth")
         print("'namek -- takes you to namek")
@@ -56,6 +88,10 @@ lplr.Chatted:connect(function(chat)
 
     if Noslow == false then
         Noslow = true
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Noslow activated succesfully!"
+        })
         activenoslow = game:GetService("RunService").Stepped:Connect(function()
             for _, v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
                 if v.Name == "Action" or (v.Name == "Attacking") or 
@@ -74,9 +110,12 @@ lplr.Chatted:connect(function(chat)
             end)
         elseif Noslow == true then
             Noslow = false
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "Why'd you deactivate?"
+            })
             activenoslow:Disconnect()
         end
     end
-
-
+    
 end)
