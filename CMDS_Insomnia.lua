@@ -125,7 +125,8 @@ lplr.Chatted:connect(function(chat)
         print("'re -- Hard resets.")
         print("'aq -- Anti queue kick. (Destroys wormhole)")
         print("'sl -- changes slots.")
-        print("'egm -- Enables earth godmode.")
+        print("'freeze -- self explanatory. (Equip Dragon Crush and use it)")
+        print("'egm -- Enables earth godmode. // togglable")
         print("'anchor -- anchor's you body to the place you're standing // togglable")
         print("'ns -- activates noslow // togglable")
     end
@@ -195,6 +196,15 @@ lplr.Chatted:connect(function(chat)
             })
             game:GetService("Workspace").Live[lplr.Name].HumanoidRootPart.Anchored = false
         end
+    end
+
+    if chat:match("'freeze") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Freezing time!"
+        })
+        lplr.Character:FindFirstChild'Dragon Crush'.Activator.Throw:Destroy()
+        TeleportService:Teleport(game.PlaceId, Players.LocalPlayer)
     end
 
     if chat:match("'ns") then
