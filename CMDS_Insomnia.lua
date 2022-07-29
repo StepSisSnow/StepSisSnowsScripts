@@ -19,6 +19,7 @@ local lplr = game.Players.LocalPlayer
 local ilive = game:WaitForChild("Workspace").Live
 local char = ilive:WaitForChild(game.Players.LocalPlayer.Name)
 
+EGod = false
 Anchoredchar = false
 beanyspammy = false
 Noslow = false
@@ -124,8 +125,38 @@ lplr.Chatted:connect(function(chat)
         print("'re -- Hard resets.")
         print("'aq -- Anti queue kick. (Destroys wormhole)")
         print("'sl -- changes slots.")
+        print("'egm -- Enables earth godmode.")
         print("'anchor -- anchor's you body to the place you're standing // togglable")
         print("'ns -- activates noslow // togglable")
+    end
+
+    if chat:match("'egm") then
+        if EGod == false then
+            EGod = true
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "You're a god on earth now!"
+            })
+		    local God = game.Workspace.Touchy.Part
+		    local Root = game.Players.LocalPlayer.Character.HumanoidRootPart
+		    EGoddess = game:GetService("RunService").RenderStepped:Connect(function()
+				firetouchinterest(Root, God, 0)
+				firetouchinterest(Root, God, 1)
+				if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Popup") then
+					game.Players.LocalPlayer.PlayerGui.Popup:Destroy()
+				end
+			end)
+        elseif EGod == true then
+            EGod = false
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "You have lost your god powers... :("
+            })
+		    EGoddess:Disconnect()
+		    if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Popup") then
+			    game.Players.LocalPlayer.PlayerGui.Popup:Destroy()
+		    end
+        end
     end
 
     if chat:match("'sl") then
