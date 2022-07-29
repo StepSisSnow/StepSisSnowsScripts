@@ -2,6 +2,11 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
     Title = "Insomnia's CMDS";
     Text = "Way better than NDR's am i right?"
 })
+wait(1.2)
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "How to use?";
+    Text = "Type 'cmds to see all the commands available at the moment!"
+})
 
 local lplr = game.Players.LocalPlayer
 
@@ -33,6 +38,18 @@ lplr.Chatted:connect(function(chat)
 
     if chat:match("'zaros") then
         game:GetService("TeleportService"):Teleport(2651456105)
+    end
+
+    if chat:match("'cmds") then
+        print("Current Commands:")
+        print("'earth -- takes you to earth")
+        print("'namek -- takes you to namek")
+        print("'space -- takes you to space")
+        print("'future -- takes you to future")
+        print("'sw -- takes you to secret world")
+        print("'queue -- takes you to queue world")
+        print("'zaros -- takes you to zaros but why tf would u be there")
+        print("'ns -- activates noslow")
     end
 
     if chat:match("'ns") then
