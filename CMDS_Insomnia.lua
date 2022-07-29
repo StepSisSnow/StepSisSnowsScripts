@@ -113,9 +113,10 @@ lplr.Chatted:connect(function(chat)
         print("'sw -- takes you to secret world")
         print("'queue -- takes you to queue world")
         print("'zaros -- takes you to zaros but why tf would u be there")
-        print("'bs -- Well, it spams beans")
+        print("'bs -- Well, it spams beans // togglable")
         print("'re -- Hard resets.")
-        print("'ns -- activates noslow")
+        print("'anchor -- anchor's you body to the place you're standing // togglable")
+        print("'ns -- activates noslow // togglable")
     end
 
     if chat:match("'anchor") then
