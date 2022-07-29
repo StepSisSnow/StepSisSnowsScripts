@@ -9,7 +9,10 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 })
 
 local lplr = game.Players.LocalPlayer
+local ilive = game:WaitForChild("Workspace").Live
+local char = ilive:WaitForChild(game.Players.LocalPlayer.Name)
 
+Anchoredchar = false
 beanyspammy = false
 Noslow = false
 lplr.Chatted:connect(function(chat)
@@ -113,6 +116,24 @@ lplr.Chatted:connect(function(chat)
         print("'bs -- Well, it spams beans")
         print("'re -- Hard resets.")
         print("'ns -- activates noslow")
+    end
+
+    if chat:match("'anchor") then
+        if Anchoredchar == false then
+            Anchoredchar = true
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "Anchored!"
+            })
+            game:GetService("Workspace").Live[lplr.Name].HumanoidRootPart.Anchored = true
+        elseif Anchoredchar == true then
+            Anchoredchar = false
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "You're free to go!"
+            })
+            game:GetService("Workspace").Live[lplr.Name].HumanoidRootPart.Anchored = false
+        end
     end
 
     if chat:match("'ns") then
