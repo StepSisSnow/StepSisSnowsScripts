@@ -19,6 +19,8 @@ local lplr = game.Players.LocalPlayer
 local ilive = game:WaitForChild("Workspace").Live
 local char = ilive:WaitForChild(game.Players.LocalPlayer.Name)
 
+KISpam = false
+meleespam = false
 EGod = false
 Anchoredchar = false
 beanyspammy = false
@@ -125,10 +127,13 @@ lplr.Chatted:connect(function(chat)
         print("'re -- Hard resets.")
         print("'aq -- Anti queue kick. (Destroys wormhole)")
         print("'sl -- changes slots.")
+        print("'mspam -- Spams melee moves // togglable")
+        print("'kispam -- Spams ki attacks (does not lag the server) // togglable")
         print("'freeze -- self explanatory. (Equip Dragon Crush and use it)")
         print("'egm -- Enables earth godmode. // togglable")
         print("'anchor -- anchor's you body to the place you're standing // togglable")
         print("'ns -- activates noslow // togglable")
+        print("'lag -- lags the server")
     end
 
     if chat:match("'egm") then
@@ -178,6 +183,172 @@ lplr.Chatted:connect(function(chat)
             Text = "Destroyed queue portal!"
         })
         game.Workspace.Wormhole.TouchInterest:Destroy()
+    end
+
+    if chat:match("'mspam") then
+        if meleespam == false then
+            meleespam = true
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "Spamming melee moves!"
+            })
+            MSPAM = game:GetService("RunService").RenderStepped:Connect(function()
+            for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if
+                v.Name == "Meteor Crash" or
+                v.Name == "Mach Kick" or
+                v.Name == "Anger Rush" or
+                v.Name == "Wolf Fang Fist" or
+                v.Name == "Neo Wolf Fang Fist" or
+                v.Name == "Strong Kick" or
+                v.Name == "Spirit Splash" or
+                v.Name == "Deadly Dance" or
+                v.Name == "God Slicer" or
+                v.Name == "TS Molotov"
+                 then
+                    v.Parent = game:GetService("Workspace").Live[game.Players.LocalPlayer.Name]
+                    wait()
+                    v:Activate()
+                    v:Deactivate()
+                    v.Parent = game.Players.LocalPlayer.Backpack
+                 end
+            end
+            end)
+        elseif meleespam == true then
+            meleespam = false
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "You're too weak..."
+            })
+            MSPAM:Disconnect()
+        end
+    end
+
+    if chat:match("'lag") then
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Insomnia's CMDS:";
+            Text = "Lagging the server!"
+        })
+        game:GetService("RunService").RenderStepped:Connect(function()
+        for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+            if
+            v.Name == "Big Bang Attack" or
+            v.Name == "Burning Attack" or
+            v.Name == "Tribeam" or
+            v.Name == "Kamehameha" or
+            v.Name == "Explosive Wave" or
+            v.Name == "Destructo Disk" or
+            v.Name == "Double Sunday" or
+            v.Name == "Unrelenting Volley" or
+            v.Name == "Explosive Grip" or
+            v.Name == "Galick Gun" or
+            v.Name == "Special Beam Cannon" or
+            v.Name == "Blaster Meteor" or
+            v.Name == "Burning Blast" or
+            v.Name == "Death Beam Barrage" or
+            v.Name == "Divine Lasso" or
+            v.Name == "Chain Destructo Disk" or
+            v.Name == "Pressure Gauge" or
+            v.Name == "Heat Dome Attack" or
+            v.Name == "Justice Flash" or
+            v.Name == "Hell Pillars" or
+            v.Name == "Light Grenade" or
+            v.Name == "Beam Scatter" or
+            v.Name == "Final Flash" or
+            v.Name == "Giant Storm" or
+            v.Name == "Warp Kamehameha" or
+            v.Name == "Genocide Shell" or
+            v.Name == "Spirit Bomb" or
+            v.Name == "Milky Cannon" or
+            v.Name == "Super Nova" or
+            v.Name == "Break Cannon" or
+            v.Name == "Super Spirit Bomb" or
+            v.Name == "Sudden Storm" or
+            v.Name == "Final Shine" or
+            v.Name == "Final Kame" or
+            v.Name == "Holy Wrath" or
+            v.Name == "Super Death Beam" or
+            v.Name == "Gigantic Breath" or
+            v.Name == "Broly Kamehameha" or
+            v.Name == "Eraser Cannon" or
+            v.Name == "Planet Crusher" or
+            v.Name == "God Hakai" or
+            v.Name == "God Wrath" or
+            v.Name == "GOD Anger" or
+            v.Name == "GOD Sphere" or
+            v.Name == "Buu Blaster" or
+            v.Name == "One-Hand Kamehameha" or
+            v.Name == "Big Bang Kamehameha" or
+            v.Name == "Double Buster" or
+            v.Name == "Flame Kamehameha" or
+            v.Name == "Demon Flash" or
+            v.Name == "Dark Beam" or
+            v.Name == "KKx4 Kamehameha" or
+            v.Name == "Finish Breaker" or
+            v.Name == "Death Beam" or
+            v.Name == "Crusher Ball" or
+            v.Name == "Death Saucer" or
+            v.Name == "Spirit Ball" or
+            v.Name == "Super Volley" or
+            v.Name == "Energy Wave" or
+            v.Name == "Murder Grenade"
+                then
+                    v.Parent = game:GetService("Workspace").Live[game.Players.LocalPlayer.Name]
+                    wait()
+                    v:Activate()
+                    v:Deactivate()
+                    v.Parent = game.Players.LocalPlayer.Backpack
+                end
+            end
+        end)
+    end
+
+    if chat:match("'kispam") then
+        if KISpam == false then
+            KISpam = true
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "U sure you got enough ki max for this?"
+            })
+            KSPAM = game:GetService("RunService").RenderStepped:Connect(function()
+            for i, v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+                if
+                v.Name == "Unrelenting Volley" or
+                v.Name == "Explosive Grip" or
+                v.Name == "Blaster Meteor" or
+                v.Name == "Divine Lasso" or
+                v.Name == "Pressure Gauge" or
+                v.Name == "Justice Flash" or
+                v.Name == "Hell Pillars" or
+                v.Name == "Beam Scatter" or
+                v.Name == "Genocide Shell" or
+                v.Name == "Sudden Storm" or
+                v.Name == "Big Bang Kamehameha" or
+                v.Name == "Demon Flash" or
+                v.Name == "Finish Breaker" or
+                v.Name == "Crusher Ball" or
+                v.Name == "Death Saucer" or
+                v.Name == "Spirit Ball" or
+                v.Name == "Super Volley" or
+                v.Name == "Hellzone Grenade" or
+                v.Name == "Murder Grenade"
+                    then
+                        v.Parent = game:GetService("Workspace").Live[game.Players.LocalPlayer.Name]
+                        wait()
+                        v:Activate()
+                        v:Deactivate()
+                        v.Parent = game.Players.LocalPlayer.Backpack
+                    end
+                end
+            end)
+        elseif KISpam == true then
+            KISpam = false
+            game:GetService("StarterGui"):SetCore("SendNotification", {
+                Title = "Insomnia's CMDS:";
+                Text = "You ran out of ki max..."
+            })
+            KSPAM:Disconnect()
+        end
     end
 
     if chat:match("'anchor") then
