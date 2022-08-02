@@ -131,6 +131,7 @@ lplr.Chatted:connect(function(chat)
         print("'kispam -- Spams ki attacks (does not lag the server) // togglable")
         print("'freeze -- self explanatory. (Equip Dragon Crush and use it)")
         print("'egm -- Enables earth godmode. // togglable")
+        print("'gm -- Enables Universal Godmode // Made by Aloof")
         print("'anchor -- anchor's you body to the place you're standing // togglable")
         print("'ns -- activates noslow // togglable")
         print("'lag -- lags the server")
@@ -349,6 +350,56 @@ lplr.Chatted:connect(function(chat)
             })
             KSPAM:Disconnect()
         end
+    end
+
+    if chat:match("'gm") then
+        getgenv().toggled = false
+
+        repeat
+            task.wait()
+        until game:IsLoaded()
+        repeat
+            task.wait()
+        until game.Players.LocalPlayer.Character
+        game.Players.LocalPlayer.Character:WaitForChild("Prestige")
+        task.wait(1)
+        function uni_god()
+            char = game.Players.LocalPlayer.Character
+            bp = game.Players.LocalPlayer.Backpack
+            game.Players.LocalPlayer.Character:WaitForChild("Prestige")
+            task.wait(0.5)
+            local aas = bp:FindFirstChild("Afterimage Strike")
+            if not aas then return print("unsuccessful") end;
+            aas.Parent = char
+            pcall(function()
+                char.PrimaryPart:FindFirstChild("VanishParticle"):Destroy()
+            end);
+            repeat
+                task.wait()
+                aas.Targeter:FireServer(char)
+                aas:Activate()
+            until char:FindFirstChild("i")
+            aas:Deactivate()
+        end;
+        getgenv().uni_god_hookfunc = false
+        if not uni_god_hookfunc then
+            getgenv().uni_god_hookfunc = true
+            old = hookmetamethod(game,'__namecall',function(self,...)
+                nc = getnamecallmethod()
+                args = {...}
+                    if nc == "FireServer" and self.Name == "Input" then
+                        if args[1][1] == "blockoff" or args[1][1] == "blockon" then
+                            return nil
+                        end;
+                    end;
+                return old(self,...)
+            end);
+        end;
+
+        if toggled then
+            uni_god()
+            uni_char_added = game.Players.LocalPlayer.CharacterAdded:connect(uni_god)
+        end;
     end
 
     if chat:match("'anchor") then
