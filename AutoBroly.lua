@@ -1,4 +1,3 @@
-
 -- script start: notifications
 if not game:IsLoaded() then
 	local loadedcheck = Instance.new("Message",workspace)
@@ -164,7 +163,6 @@ if game.PlaceId == 3565304751 then
 		[2] = "All"
 	}
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(unpack(args))
-	wait(1)
 	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.Visible = true
 	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.BackgroundColor3 = Color3.new(0, 0, 0)
 	game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.SP.BackgroundTransparency = 0.2
@@ -179,31 +177,36 @@ if game.PlaceId == 3565304751 then
 	pcall(function()
 		game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Quests.ImageLabel:Destroy()
 	end)
-    if AntiLeech == false then do
-		if Invisibility == true then
-			Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-1500),1)
-			Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-2000),1)
-			Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-3000),1)
-			Char.LowerTorso:Destroy()
-		end
-		game.Players.LocalPlayer.Character.PowerOutput:Destroy()
-		local Pads = {}
-		for i,v in pairs(game:WaitForChild("Workspace"):GetChildren()) do
-			if v.Name:find("BrolyTeleport") then		       
-				table.insert(Pads,v)
+	if FasterAB == false then
+    	if AntiLeech == false then do
+			if Invisibility == true then
+				FasterAB = false
+				Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-1500),1)
+				Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-2000),1)
+				Twn(Char:WaitForChild("HumanoidRootPart"),CFrame.new(0,238,-3000),1)
+				Char.LowerTorso:Destroy()
 			end
 		end
-		if ExpFreeze == true then
-			game:GetService("RunService").Stepped:Connect(function()
-				if game:GetService("Players").LocalPlayer.Character:FindFirstChild("True") then
-					game:GetService("Players").LocalPlayer.Character:FindFirstChild("True"):Destroy()
+		if FasterAB == true then
+			game.Players.LocalPlayer.Character.PowerOutput:Destroy()
+			local Pads = {}
+			for i,v in pairs(game:WaitForChild("Workspace"):GetChildren()) do
+				if v.Name:find("BrolyTeleport") then		       
+					table.insert(Pads,v)
 				end
-			end)
-		end
-		local pad = Pads[math.random(1,7)]
-		Twn(Char.HumanoidRootPart,pad.PrimaryPart.CFrame,1)
-		wait(45)
-		game:GetService("TeleportService"):Teleport(536102540)
+			end
+			if ExpFreeze == true then
+				game:GetService("RunService").Stepped:Connect(function()
+					if game:GetService("Players").LocalPlayer.Character:FindFirstChild("True") then
+						game:GetService("Players").LocalPlayer.Character:FindFirstChild("True"):Destroy()
+					end
+				end)
+			end
+			local pad = Pads[math.random(1,7)]
+			Twn(Char.HumanoidRootPart,pad.PrimaryPart.CFrame,1)
+			wait(45)
+			game:GetService("TeleportService"):Teleport(536102540)
+			end
 		end
 	end
 	-- autobroly loader
@@ -330,16 +333,18 @@ if game.PlaceId == 3565304751 then
 			Char.HumanoidRootPart.CFrame = game.Workspace.Live["Broly BR"].HumanoidRootPart.CFrame * CFrame.new(0,0,4.20)
 			Char.HumanoidRootPart.CFrame = CFrame.new(Char.HumanoidRootPart.Position,B.HumanoidRootPart.Position)
 		end)
-		if DragonCrush == true then do
-		game.Players.LocalPlayer.Backpack["Dragon Crush"].Parent = Char
-		Char["Dragon Crush"].Activator["Flip"]:Destroy()
-		Char["Dragon Crush"].Activator["Throw"]:Destroy()
-		wait(0.5)
-		Char["Dragon Crush"]:Activate()
-		wait(0.25)
-		Char["Dragon Crush"]:Deactivate()
-		Char["Dragon Crush"].Parent = game.Players.LocalPlayer.Backpack
-		wait(0.2)
+		if FasterAB == false then
+			if DragonCrush == true then do
+			game.Players.LocalPlayer.Backpack["Dragon Crush"].Parent = Char
+			Char["Dragon Crush"].Activator["Flip"]:Destroy()
+			Char["Dragon Crush"].Activator["Throw"]:Destroy()
+			wait(0.5)
+			Char["Dragon Crush"]:Activate()
+			wait(0.25)
+			Char["Dragon Crush"]:Deactivate()
+			Char["Dragon Crush"].Parent = game.Players.LocalPlayer.Backpack
+			wait(0.2)
+			end
 		end
 	end
 	-- AntiLeech
