@@ -59,9 +59,10 @@ if game.PlaceId == 882375367 then
       game:GetService("Players").LocalPlayer.PlayerGui.HUD.FullSize.Money.Text = "FUCK NDR!"
       coroutine.resume(
         coroutine.create(function()
-            local lvl = game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.LVL.Val.Text
+            local lvl = tonumber(game:GetService("Players").LocalPlayer.PlayerGui.HUD.Bottom.Stats.LVL.Val.Text)
             while wait() do
                 if lvl == "101" or lvl == "181" or lvl == "251" or lvl == "321" then
+                    wait(5)
                     game:GetService("TeleportService"):Teleport(536102540)
                 end
             end
@@ -121,19 +122,15 @@ if game.PlaceId == 882375367 then
         end)
     )
     while wait() do
-      if Char.Ki.Value > Char.Ki.MaxValue/20 then 
-        for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
-          if v.Name == Move1 or v.Name == Move2 or v.Name == Move3 or v.Name == Move4 or v.Name == Move5 or v.Name == Move6 or v.Name == Move7 or v.Name == Move8 or v.Name == Move9 or v.Name == Move10 or v.Name == Move11 or v.Name == Move12 then
-            v.Parent = game:GetService("Workspace").Live[game.Players.LocalPlayer.Name]
-            wait()
-            v:Activate() 
-            v:Deactivate() 
-            v.Parent = game.Players.LocalPlayer.Backpack 
+      for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do 
+        if v.Name == Move1 or v.Name == Move2 or v.Name == Move3 or v.Name == Move4 or v.Name == Move5 or v.Name == Move6 or v.Name == Move7 or v.Name == Move8 or v.Name == Move9 or v.Name == Move10 or v.Name == Move11 or v.Name == Move12 then
+          v.Parent = game:GetService("Workspace").Live[game.Players.LocalPlayer.Name]
+          wait()
+          v:Activate() 
+          v:Deactivate() 
+          v.Parent = game.Players.LocalPlayer.Backpack 
           end
-        end
       end
-      if Char.Ki.Value < Char.Ki.MaxValue/4 then
-        game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer({[1] = "m2"},CFrame.new(0,0,0),nil,false)
+      game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer({[1] = "m2"},CFrame.new(0,0,0),nil,false)
     end
-  end
 end
