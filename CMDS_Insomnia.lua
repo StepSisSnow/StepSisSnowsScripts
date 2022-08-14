@@ -16,7 +16,7 @@ game:GetService("StarterGui"):SetCore("SendNotification", {
 })
 
 local lplr = game.Players.LocalPlayer
-local ilive = game:WaitForChild("Wokspace").Live
+local ilive = game:WaitForChild("Workspace").Live
 local char = ilive:WaitForChild(game.Players.LocalPlayer.Name)
 
 KISpam = false
@@ -127,7 +127,6 @@ lplr.Chatted:connect(function(chat)
         print("'re -- Hard resets.")
         print("'aq -- Anti queue kick. (Destroys wormhole)")
         print("'sl -- changes slots.")
-        print("'shaders -- Enables Shaders ingame.")
         print("'mspam -- Spams melee moves // togglable")
         print("'kispam -- Spams ki attacks (does not lag the server) // togglable")
         print("'freeze -- self explanatory. (Equip Dragon Crush and use it)")
@@ -368,29 +367,6 @@ lplr.Chatted:connect(function(chat)
             })
             game:GetService("Workspace").Live[lplr.Name].HumanoidRootPart.Anchored = false
         end
-    end
-
-    if chat:match("'shaders") then
-        game:GetService("StarterGui"):SetCore("SendNotification", {
-            Title = "Insomnia's Shaders:";
-            Text = "Just a test.";
-        })
-        bloom = Instance.new("BloomEffect",game.Lighting) -- BLOOM Properties
-        bloom.Intensity = 0.5
-        bloom.Size = 56
-        bloom.Threshold = 0.5
-         
-        blur = Instance.new("BlurEffect",game.Lighting) -- BLUR Properties
-        blur.Size = 5
-         
-        color = Instance.new("ColorCorrectionEffect",game.Ligting) -- COLORCORRECTION Properties
-        color.TintColor = Color3.fromRGB(216,216,216)
-         
-        rays = Instance.new("SunRaysEffect",game.Lighting) -- SUNRAYS Properties
-        rays.Intensity = 0.12
-        rays.Spread = 1
-         
-        print("AutoTOP coming soon!")
     end
 
     if chat:match("'freeze") then
