@@ -1,3 +1,5 @@
+
+
 -- script start: notifications
 if not game:IsLoaded() then
 	local loadedcheck = Instance.new("Message",workspace)
@@ -249,12 +251,14 @@ if game.PlaceId == 3565304751 then
 				wait()
 			end
 		end
-		if  game.Workspace.Live[plr.Name].Race.Value ~= "Android" then
-			game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer({[1] = "x"},CFrame.new(0,0,0),InputObject)
-			wait(ChargeTime)
-			game.Players.LocalPlayer.Backpack.ServerTraits.Transform:FireServer("h")
-			wait(0.5)
-			game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer({[1] = "xoff"},CFrame.new(0,0,0),InputObject)
+		if NoForm == false then
+			if  game.Workspace.Live[plr.Name].Race.Value ~= "Android" then
+				game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer({[1] = "x"},CFrame.new(0,0,0),InputObject)
+				wait(ChargeTime)
+				game.Players.LocalPlayer.Backpack.ServerTraits.Transform:FireServer("h")
+				wait(0.5)
+				game.Players.LocalPlayer.Backpack.ServerTraits.Input:FireServer({[1] = "xoff"},CFrame.new(0,0,0),InputObject)
+			end
 		end
 		if TeamDamage == true then
 			local plr = game.Players.LocalPlayer
