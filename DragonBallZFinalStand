@@ -24,18 +24,6 @@ local Plr = game:GetService("Players").LocalPlayer
 local Char = Plr.Character 
 local Live = game:GetService("Workspace").Live
 local plrs = game:GetService("Players")
-local TeamBased = false ; local teambasedswitch = "p"
-local presskeytoaim = true; local aimkey = "v"
-local raycast = false
-
-local espupdatetime = 5; autoesp = false
-
-
-
-local lockaim = true; local lockangle = 5
-
-
-
 
 local Gui = Instance.new("ScreenGui")
 local Move = Instance.new("Frame")
@@ -48,209 +36,25 @@ local Name = Instance.new("TextLabel")
 
 -- Scripts:
 
-
-local plrsforaim = {}
-
 local lplr = game:GetService("Players").LocalPlayer
 Move.Draggable = true
 Gui.ResetOnSpawn = false
 Gui.Name = "Chat"
 Gui.DisplayOrder = 999
-
-	Gui.Parent = plrs.LocalPlayer.PlayerGui
-
-
-f = {}
-
-
-
-local cam = game.Workspace.CurrentCamera
-
+Gui.Parent = plrs.LocalPlayer.PlayerGui
 local mouse = lplr:GetMouse()
-local switch = false
-local key = "k"
-local aimatpart = nil
-mouse.KeyDown:Connect(function(a)
-	if a == "t" then
-		print("worked1")
-		f.addesp()
-	elseif a == "u" then
-		if raycast == true then
-			raycast = false
-		else
-			raycast = true
-		end
-	elseif a == "l" then
-		if autoesp == false then
-			autoesp = true
-		else
-			autoesp = false
-		end
-	end
-	if a == "j" then
-		if mouse.Target then
-			mouse.Target:Destroy()
-		end
-	end
-	if a == key then
-		if switch == false then
-			switch = true
-		else
-			switch = false
-			if aimatpart ~= nil then
-				aimatpart = nil
-			end
-		end
-	elseif a == teambasedswitch then
-		if TeamBased == true then
-			TeamBased = false
-			teambasedstatus.Text = tostring(TeamBased)
-		else
-			TeamBased = true
-			teambasedstatus.Text = tostring(TeamBased)
-		end
-	elseif a == aimkey then
-		if not aimatpart then
-			local maxangle = math.rad(20)
-			for i, plr in pairs(plrs:GetChildren()) do
-				if plr.Name ~= lplr.Name and plr.Character and plr.Character.Head and plr.Character.Humanoid and plr.Character.Humanoid.Health > 1 then
-					if TeamBased == true then
-						if plr.Team.Name ~= lplr.Team.Name then
-							local an = checkfov(plr.Character.Head)
-							if an < maxangle then
-								maxangle = an
-								aimatpart = plr.Character.Head
-							end
-						end
-					else
-						local an = checkfov(plr.Character.Head)
-							if an < maxangle then
-								maxangle = an
-								aimatpart = plr.Character.Head
-							end
-							print(plr)
-					end
-					plr.Character.Humanoid.Died:Connect(function()
-						if aimatpart.Parent == plr.Character or aimatpart == nil then
-							aimatpart = nil
-						end
-					end)
-				end
-			end
-		else
-			aimatpart = nil
-		end
-	end
-end)
 
-function getfovxyz (p0, p1, deg)
-	local x1, y1, z1 = p0:ToOrientation()
-	local cf = CFrame.new(p0.p, p1.p)
-	local x2, y2, z2 = cf:ToOrientation()
-	--local d = math.deg
-	if deg then
-		--return Vector3.new(d(x1-x2), d(y1-y2), d(z1-z2))
-	else
-		return Vector3.new((x1-x2), (y1-y2), (z1-z2))
-	end
-end
-
-function getaimbotplrs()
-	plrsforaim = {}
-	for i, plr in pairs(plrs:GetChildren()) do
-		if plr.Character and plr.Character.Humanoid and plr.Character.Humanoid.Health > 0 and plr.Name ~= lplr.Name and plr.Character.Head then
-			
-			if TeamBased == true then
-				if plr.Team.Name ~= lplr.Team.Name then
-					local cf = CFrame.new(game.Workspace.CurrentCamera.CFrame.p, plr.Character.Head.CFrame.p)
-					local r = Ray.new(cf, cf.LookVector * 10000)
-					local ign = {}
-					for i, v in pairs(plrs.LocalPlayer.Character:GetChildren()) do
-						if v:IsA("BasePart") then
-							table.insert(ign , v)
-						end
-					end
-					local obj = game.Workspace:FindPartOnRayWithIgnoreList(r, ign)
-					if obj.Parent == plr.Character and obj.Parent ~= lplr.Character then
-						table.insert(plrsforaim, obj)
-					end
-				end
-			else
-				local cf = CFrame.new(game.Workspace.CurrentCamera.CFrame.p, plr.Character.Head.CFrame.p)
-				local r = Ray.new(cf, cf.LookVector * 10000)
-				local ign = {}
-				for i, v in pairs(plrs.LocalPlayer.Character:GetChildren()) do
-					if v:IsA("BasePart") then
-						table.insert(ign , v)
-					end
-				end
-				local obj = game.Workspace:FindPartOnRayWithIgnoreList(r, ign)
-				if obj.Parent == plr.Character and obj.Parent ~= lplr.Character then
-					table.insert(plrsforaim, obj)
-				end
-			end
-			
-			
-		end
-	end
-end
-
-function aimat(part)
-	cam.CFrame = CFrame.new(cam.CFrame.p, part.CFrame.p)
-end
-function checkfov (part)
-	local fov = getfovxyz(game.Workspace.CurrentCamera.CFrame, part.CFrame)
-	local angle = math.abs(fov.X) + math.abs(fov.Y)
-	return angle
-end
-
-game:GetService("RunService").RenderStepped:Connect(function()
-	if aimatpart then
-		aimat(aimatpart)
-		if aimatpart.Parent == plrs.LocalPlayer.Character then
-			aimatpart = nil
-		end
-	end
-		
-		if raycast == true and switch == false and not aimatpart then
-			getaimbotplrs()
-			aimatpart = nil
-			local maxangle = 999
-			for i, v in ipairs(plrsforaim) do
-				if v.Parent ~= lplr.Character then
-					local an = checkfov(v)
-					if an < maxangle and v ~= lplr.Character.Head then
-						maxangle = an
-						aimatpart = v
-						print(v:GetFullName())
-						v.Parent.Humanoid.Died:connect(function()
-							aimatpart = nil
-						end)
-					end
-				end
-			end
-		
-	end
-end)
-delay(0, function()
-	while wait(espupdatetime) do
-		if autoesp == true then
-			pcall(function()
-			f.addesp()
-			end)
-		end
-	end
-end)
 local SkidHub = Library.CreateLib("Skid Hub", "DarkTheme")
 local Main = SkidHub:NewTab("Main")
 local ImportantStuff = Main:NewSection("Important shit")
 local Godmodes = Main:NewSection("Godmodes")
-local oohmahgah = Main:NewSection("Other stuff")
+local others = Main:NewSection("Other stuff")
 local lolz = Main:NewSection("LOL")
 local misc = SkidHub:NewTab("Misc")
 local freeshit = misc:NewSection("Free Shit")
 local otherstuff = misc:NewSection("Other Stuff")
-local funnycdstuff = misc:NewSection("Funny Client Sided Stuffs")
+local StatChecker = SkidHub:NewTab("Stat Checker")
+local statsc = StatChecker:NewSection("Stat Checker")
 local Teleports = SkidHub:NewTab("Teleports")
 local tps = Teleports:NewSection("Teleport Locations")
 local Buy = SkidHub:NewTab("Buy")
@@ -260,12 +64,12 @@ local forms = Buy:NewSection("Prestige Forms")
 local moves = Buy:NewSection("Heaven Moves")
 local Options = SkidHub:NewTab("Settings")
 local Opts = Options:NewSection("Settings")
-ImportantStuff:NewSlider("TeleSpeed", "Adjust ur Telspeed", 1, 500, function()
+ImportantStuff:NewSlider("TeleSpeed", "Adjust ur Telspeed", 1, 500, function(telespeed)
     _G.TeleSpeed_Bind = "Q"
     down = false
     velocity = Instance.new("BodyVelocity")
     velocity.maxForce = Vector3.new(10000000, 0, 10000000)
-                        local speed = telespeed
+    local speed = telespeed
     gyro = Instance.new("BodyGyro")
     gyro.maxTorque = Vector3.new(10000000, 0, 10000000)
     local hum = game.Players.LocalPlayer.Character.Humanoid
@@ -366,15 +170,17 @@ ImportantStuff:NewToggle("Bean Spam", "Toggle's Beanspam", function(beanspam)
         Spam = false
     end
 end)
-ImportantStuff:NewDropdown("Slot Changer", "Change to any slot", {"Slot 1", "Slot 2", "Slot 3"}, function(chosenSlot)
-    Plr.Backpack.ServerTraits.ChatStart:FireServer(workspace.FriendlyNPCs["Character Slot Changer"]); --Switch to normal
-    task.wait(0.85);
-    Plr.Backpack.ServerTraits.ChatAdvance:FireServer({"Yes"});
-    task.wait(0.85);
-    Plr.Backpack.ServerTraits.ChatAdvance:FireServer({"k"});
-    task.wait(0.5);
-    Plr.Backpack.ServerTraits.ChatAdvance:FireServer({choosenSlot});
-    task.wait(0.5)
+ImportantStuff:NewDropdown("Slot Changer", "Change to any slot", {"Slot1", "Slot2", "Slot3"}, function(choosenSlot)
+    game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatStart:FireServer(workspace.FriendlyNPCs["Character Slot Changer"])
+    wait(0.7)
+    game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer({ [1] = "Yes" })
+    wait(0.7)
+    game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer({ [1] = "k" })
+    wait(0.7)
+    game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer({ choosenSlot })
+    wait(0.7)
+    game:GetService("Players").LocalPlayer.Backpack.ServerTraits.ChatAdvance:FireServer({ [1] = "k" })
+    task.wait(0.7)
     game.Players.LocalPlayer.CharacterRemoving:Wait()
     game.Players.LocalPlayer.CharacterAdded:Wait()
     task.wait(1)
@@ -422,7 +228,7 @@ Godmodes:NewButton("Ranked/HTC Godmode", "Makes u unkillable in HTC and Ranked!"
     game.Players.LocalPlayer.Character.Stats["Phys-Resist"]:Destroy()
     game.Players.LocalPlayer.Character.Stats["Ki-Resist"]:Destroy()
 end)
-oohmahgah:NewToggle("Stay in Form", "Lets u stay in form even when your ki runs out.", function(StayInForm)
+others:NewToggle("Stay in Form", "Lets u stay in form even when your ki runs out.", function(StayInForm)
     if StayinForm == true then
 		if game.Players.LocalPlayer.Character.HumanoidRootPart:FindFirstChild("SaiyanAuraWeak") then
 			game.Players.LocalPlayer.Character.HumanoidRootPart.SaiyanAuraWeak:Destroy()
@@ -452,20 +258,22 @@ oohmahgah:NewToggle("Stay in Form", "Lets u stay in form even when your ki runs 
 		game.Players.LocalPlayer.Character.Humanoid.Health = 0
 	end
 end)
-oohmahgah:NewToggle("T.O.P. Respawn", "Lets u respawn in T.O.P!", function(TOPRespawn)
-    if TOPRespawn == true then
-		respawn = true
-		while respawn do
-			wait(0.05)
-			if game.Players.LocalPlayer.Character:FindFirstChild("SuperAction") then
-				game.Players.localPlayer.Character:FindFirstChild("SuperAction"):Destroy()
-			end
-		end
-	else
-		respawn = false
-	end
+others:NewToggle("T.O.P. Respawn", "L to revive K to tp out", function(TOPRespawn)
+    local lplr = game:GetService("Players").LocalPlayer
+    local mouse = lplr:GetMouse()
+    mouse.KeyDown:connect(function(key)
+        if key == "k" then
+            game:GetService("TweenService"):Create(lplr.Character.HumanoidRootPart, TweenInfo.new(0.3, Enum.EasingStyle.Linear), {CFrame = CFrame.new(100, 100, 100)}):Play()
+        end
+    end)
+    mouse.KeyDown:connect(function(key)
+        if key == "l" then
+            local action = lplr.Character.SuperAction
+            action:Destroy()
+        end
+    end)
 end)
-oohmahgah:NewButton("No Flying Ki Drain", "Destroys ur Ki Drain whilst flying.", function()
+others:NewButton("No Flying Ki Drain", "Destroys ur Ki Drain whilst flying.", function()
     local metatable = getrawmetatable(game)
 	local namecall = metatable.__namecall 
 	setreadonly(metatable,false)
@@ -477,8 +285,6 @@ oohmahgah:NewButton("No Flying Ki Drain", "Destroys ur Ki Drain whilst flying.",
 			end 
 		return namecall(self,...)
 	end)
-end)
-lolz:NewButton("Lock On [V]", "Press V to lockon on someone", function(Lock)
 end)
 freeshit:NewButton("Free Nimbus", "Gives u free nimbus with the speed (Dissapears upon rejoining)", function()
     lplr=game.Players.LocalPlayer;
@@ -606,112 +412,54 @@ otherstuff:NewButton("Remove Aura", "Removes ur aura", function()
         game.Players.LocalPlayer.Character.HumanoidRootPart.Lightning:Destroy()
     end
 end)
-funnycdstuff:NewSlider("FOV", "Adjust ur FOV", 120, 0, function(FOV)
-    game.Workspace.Camera.FieldOfView = FOV
-end)
-funnycdstuff:NewToggle("Drugs", "You are now HIGH AS FUCK MATE!", function(Drugs)
-    _G.high = true
-    if Drugs == true then
-        while _G.high do
-            game:GetService("TweenService"):Create(game.Workspace.CurrentCamera, TweenInfo.new(1.1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                FieldOfView = 120
-            }):Play()
-            game:GetService("TweenService"):Create(game:GetService("Lighting").ColorCorrection, TweenInfo.new(1.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                Saturation = 35
-            }):Play()
-            wait(1.1)
-            game:GetService("TweenService"):Create(game.Workspace.CurrentCamera, TweenInfo.new(1.1, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                FieldOfView = 1
-            }):Play()
-            game:GetService("TweenService"):Create(game:GetService("Lighting").ColorCorrection, TweenInfo.new(1.8, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {
-                Saturation = -35
-            }):Play()
-            wait(1.1)
+Na = "-"
+Ra = "-"
+Hp = "-"
+Ki = "-"
+MD = "-"
+KD = "-"
+MR = "-"
+KR = "-"
+SP = "-"
+local Name = statsc:NewLabel("Name: " .. Na)
+local Race = statsc:NewLabel("Race: " .. Ra)
+local Health = statsc:NewLabel("Health: " .. Hp)
+local KiS = statsc:NewLabel("Ki: " .. Ki)
+local Melee = statsc:NewLabel("Melee: " .. MD)
+local KiDmg = statsc:NewLabel("Ki Dmg: " .. KD)
+local MeleeRes = statsc:NewLabel("MeleeRes: " .. MR)
+local KiRes = statsc:NewLabel("KiRes: " .. KR)
+local Speed = statsc:NewLabel("Speed: " .. SP)
+statsc:NewTextBox("TextboxText", "TextboxInfo", function(Target)
+    local targetPlayerName
+    local PlayerN
+    for _, player in pairs(game.Players:GetPlayers()) do
+        if string.sub(string.lower(player.Name), 1, #Target) == string.lower(Target) then
+            targetPlayerName = player.Name
+            break
         end
-    else
-        _G.high = false
-        wait(3)
-        game.Workspace.Camera.FieldOfView = 70
-        game.Lighting.ColorCorrection.Saturation = 0.2;
     end
-end)
-funnycdstuff:NewToggle("Fullbright", "Gives u full bright so no lightning effects", function(FullBright)
-    if FullBright == true then
-        FB = game:GetService("RunService").RenderStepped:Connect(function()
-            game.Lighting.FogEnd = (99999999)
-        end)
-    else
-        FB:Disconnect()
-        game.Lighting.FogEnd = (2000)
+    if targetPlayerName then
+        PlayerN = targetPlayerName
     end
-end)
-funnycdstuff:NewButton("El Hermano's Clothes", "Gives u Hermano's Clothes", function()
-    game.Workspace.Live[Plr.name].Shirt.ShirtTemplate = "rbxassetid://1707786796"
-    game.Workspace.Live[Plr.name].Pants.PantsTemplate = "rbxassetid://1583420094"
-end)
-funnycdstuff:NewButton("Janemba's Clothes", "Gives u Janemba's Clothes", function()
-    game.Workspace.Live[Plr.name].Shirt.ShirtTemplate = "rbxassetid://1267185864"
-    game.Workspace.Live[Plr.name].Pants.PantsTemplate = "rbxassetid://1287549597"
-end)
-funnycdstuff:NewButton("Friaza's Clothes", "Gives u Friaza's Clothes", function()
-    game.Workspace.Live[Plr.name].Shirt.ShirtTemplate = "rbxassetid://139728673"
-    game.Workspace.Live[Plr.name].Pants.PantsTemplate = "rbxassetid://444226937"
-end)
-funnycdstuff:NewButton("Cell's Clothes", "Gives u Cell's Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://82940047"
-    game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://82940262"
-end)
-funnycdstuff:NewButton("Zeno's Clothes", "Gives u Zeno's Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://969885239"
-    game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://935242315"
-end)
-funnycdstuff:NewButton("King Zaran's Clothes", "Gives u King Zaran's Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://3680713779"
-    game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://3680713016"
-end)
-funnycdstuff:NewButton("Whis' Clothes", "Gives u Whis' Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://762559124"
-   game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://949277447"
-end)
-funnycdstuff:NewButton("Broly's [BR] Clothes", "Gives u Broly's [BR] Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://2121238332"
-    game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://2121241572"
-end)
-funnycdstuff:NewButton("Kibito's Clothes", "Gives u Kibito's Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://2683587512"
-    game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://2683596960"
-end)
-funnycdstuff:NewButton("Zaran's Clothes", "Gives u Zaran's Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://2488134541"
-    game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://2488134740"
-end)
-funnycdstuff:NewButton("Hit's Clothes", "Gives u Hit's Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://1046792338"
-    game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://1046792500"
-end)
-funnycdstuff:NewButton("Champa's Clothes", "Gives u Champa's Clothes", function()
-    game.Workspace.Live[plr.name].Shirt.ShirtTemplate = "rbxassetid://1070129183"
-    game.Workspace.Live[plr.name].Pants.PantsTemplate = "rbxassetid://1070142250"
-end)
-funnycdstuff:NewButton("Android Charge", "Makes u charge like a droid (Does not absorb ki attack)", function()
-    local player = game.Players.LocalPlayer
-    local mouse = player:GetMouse()
-    local Animate 
-    local Humanoid = player.Character:FindFirstChild('Humanoid')
-
-    mouse.KeyDown:Connect(function(Key) 
-        if Key == "x" then
-            local Animation = Instance.new("Animation", player.Character)
-            Animation.AnimationId = "rbxassetid://1587748889"
-            Animate = Humanoid:LoadAnimation(Animation)
-            Animate:Play()
-        end
-    end)
-    mouse.KeyUp:Connect(function(Key)
-        if Key == "x" then
-            Animate:Stop()
-        end
-    end)
+    Na = game.Workspace.Live[PlayerN].Name
+    Ra = game.Workspace.Live[PlayerN].Race.Value
+    Hp = game.Workspace.Live[PlayerN].Stats["Health-Max"].Value
+    Ki = game.Workspace.Live[PlayerN].Stats["Ki-Max"].Value
+    MD = game.Workspace.Live[PlayerN].Stats["Phys-Damage"].Value
+    KD = game.Workspace.Live[PlayerN].Stats["Ki-Damage"].Value
+    MR = game.Workspace.Live[PlayerN].Stats["Phys-Resist"].Value
+    KR = game.Workspace.Live[PlayerN].Stats["Ki-Resist"].Value
+    SP = game.Workspace.Live[PlayerN].Stats["Speed"].Value
+    Name:UpdateLabel("Name: " .. Na)
+    Race:UpdateLabel("Race: " .. Ra)
+    Health:UpdateLabel("Health: " .. Hp)
+    KiS:UpdateLabel("Ki: " .. Ki)
+    Melee:UpdateLabel("Melee: " .. MD)
+    KiDmg:UpdateLabel("Ki Dmg: " .. KD)
+    MeleeRes:UpdateLabel("MeleeRes: " .. MR)
+    KiRes:UpdateLabel("KiRes: " .. KR)
+    Speed:UpdateLabel("Speed: " .. SP)
 end)
 
 tps:NewButton("Earth", "Teleports u to earth", function()
@@ -1006,6 +754,6 @@ moves:NewButton("God Punch", "(Need zenni and lvl)", function()
     game:GetService("ReplicatedStorage").AttemptBuy:InvokeServer("God Punch")
 end)
 
-Opts:NewKeybind("Toggle UI", "Button to toggle the UI", Enum.KeyCode.Home, function()
+Opts:NewKeybind("Toggle UI", "Button to toggle the UI", Enum.KeyCode.RightControl, function()
     Library:ToggleUI()
 end)
